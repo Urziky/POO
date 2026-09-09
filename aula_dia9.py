@@ -91,3 +91,12 @@ if __name__ == "__main__":
         p3 = Pessoa("Carlos", -5, "Professor", 3000)
     except ValueError as erro:
         print("Criação recusada:", erro)  
+
+
+# AUTOAVALIAÇÃO:
+
+#Critérios atingidos durante a aula: criação de classes, atributos fechados e duas formas de criar o objeto.
+#Trecho que mais deu trabalho: foi durante a implementação dos getters e setters, eu acabei colocando o @property em cima dos getters/setters oque gerou um conflito na hora de rodar o código.
+#usei o chatgpt para mostrar onde estava o erro na criação dos setters e getters, porém o principal problema é que a IA ficou removendo os unerlines dos atributos.
+
+
