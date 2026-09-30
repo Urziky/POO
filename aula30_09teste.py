@@ -59,7 +59,8 @@ class Calcula:
     #calcula media dos salarios            
     def _media_sal(self,p1,p4):
         self._total1 = (p1.get_salario() + p4.get_salario()) / 2
-        return self._total1
+        self._total2 = self._total1 % 10
+        return self._total2
     
     #calcula media das idades   
     def _num_total_pacientes(self):
