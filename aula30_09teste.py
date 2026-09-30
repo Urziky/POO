@@ -85,44 +85,27 @@ if __name__ == "__main__":
     #p3 = Paciente("José", 27,4000)
     
     medico = Medico("Joâo", 33,10000) 
-
-    #imprime as informações da primeira pessoa
-    print("Pessoa 1:")
-    print("Nome:", p1.get_nome())
-    print("Idade:", p1.get_idade())
-    print("Salário:", p1.get_salario())
-
-    #imprime as informações da segunda pessoa
-    print("\nPessoa 2:")
-    print("Nome:", p2.get_nome())
-    print("Idade:", p2.get_idade())
-    print("Salário:", p2.get_salario())
+    i = 0
     
-    print("\nPessoa 2:")
-    print("Nome:", p3.get_nome())
-    print("Idade:", p3.get_idade())
-    print("Salário:", p3.get_salario())
-        
-    print("\nPessoa 4:")
-    print("Nome:", medico.get_nome())
-    print("Idade:", medico.get_idade())
-    print("Salário:", medico.get_salario())
-    
-    
-
+    while i < 3:
+        print("Paciente{i}:")
+        print("Nome:", pacientes[i].get_nome())
+        print("Idade:", pacientes[i].get_idade())
+        print("Salário:", pacientes[i].get_salario())
 
     #atribui a classe Calcula
     Calcular = Calcula()
 
     i = 0
     while i < 3: 
-        print("Média dos salários paciente {i}: ",  Calcular._media_sal(Paciente[i], medico))
-          
+        print("Valor a pagar do paciente {i}: ",  Calcular._media_sal(Paciente[i], medico))
+        i +=1      
 
     #teste de exceção para idade negativa
     try:
-        p3 = Pessoa("Carlos", -5, , 3000)
+        p3 = Pessoa("Carlos", -5, 3000)
     except ValueError as erro:
         print("Criação recusada:", erro)  
+
 
 
