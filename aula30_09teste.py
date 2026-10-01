@@ -34,78 +34,96 @@ class Pessoa:
         self._salario = salario
 
 class Paciente(Pessoa):
-    def __init__(self, nome, idade,salario,posicao):
-        super().__init__(nome, idade,salario)
-        self._posicao_fila = posicao 
-        
+    def __init__(self, nome, idade, salario, posicao_fila):
+        super().__init__(nome, idade, salario)
+        self.set_posicao_fila(posicao_fila)
+
+    def set_posicao_fila(self, posicao_fila):
+        if posicao_fila < 1:
+            raise ValueError("A posição na fila deve ser maior que zero.")
+        self._posicao_fila = posicao_fila
+
     @property
-    def funcao(self):
-        return self._posicao_fila 
-            
+    def posicao_fila(self):
+        return self._posicao_fila
 
 class Medico(Pessoa):
-    def __init__(self, nome, idade,salario):
-        super().__init__(nome, idade,salario)
-        self._qtd_pacientes = Paciente
+    def __init__(self, nome, idade, salario):
+        super().__init__(nome, idade, salario)
+        self._qtd_pacientes = 0
+
+    def atualizar_total_pacientes(self, pacientes):
+        self._qtd_pacientes = len(pacientes)
         
     @property
     def num_pacientes(self):
         return self._qtd_pacientes
     
 class Calcula:
-    
-    def __init__(self):
-        self._qtd = 0
-    #calcula media dos salarios            
-    def _media_sal(self,p1,p4):
-        self._total1 = (p1.get_salario() + p4.get_salario()) / 2
-        self._total2 = self._total1 % 10
-        return self._total2
-    
-    #calcula media das idades   
-    def _num_total_pacientes(self):
-        self._qtd += 1
-        for Pacientes in Pessoa:
-            
-            return self._qtd
-    
-    def _num_fila(self):
-        for Pacientes in Paciente:
+    @staticmethod
+    def calcular_pagamento(medico, paciente):
+        media_salarios = (medico.get_salario() + paciente.get_salario()) / 2
+        return media_salarios * 0.10
 
-        return self._total =      
-              
+    @staticmethod
+    def contar_pacientes(pacientes):
+        return len(pacientes)
 
+    @staticmethod
+    def numero_na_fila(paciente):
+        return paciente.posicao_fila
+
+class atende:
+    def __init__(self, medico, paciente, pacientes):
+        self.medico = medico
+        self.paciente = paciente
+        self.pacientes = pacientes
+
+    def realizar_atendimento(self):
+        if self.paciente not in self.pacientes:
+            raise ValueError("Esse paciente não está na fila.")
+
+        pagamento = Calcula.calcular_pagamento(self.medico, self.paciente)
+        self.paciente.set_salario(self.paciente.get_salario() - pagamento)
+        self.pacientes.remove(self.paciente)
+
+        for posicao, paciente in enumerate(self.pacientes, start=1):
+            paciente.set_posicao_fila(posicao)
+
+        self.medico.atualizar_total_pacientes(self.pacientes)
+        print(f"Atendimento realizado para {self.paciente.get_nome()}. Pagamento: R$ {pagamento:.2f}")
+        
 #main                
 if __name__ == "__main__":
-    pacientes = [Paciente("Ana",23,3000),
-                 Paciente("Bia",18,2000),
-                 Paciente("José",27,5000)]
-    #p1 = Paciente("Ana", 23,3000,calcular._num_fila) # primeira pessoa criada
-    #p2 = Paciente("Bia", 18,2000) 
-    #p3 = Paciente("José", 27,4000)
-    
-    medico = Medico("Joâo", 33,10000) 
-    i = 0
-    
-    while i < 3:
-        print("Paciente{i}:")
-        print("Nome:", pacientes[i].get_nome())
-        print("Idade:", pacientes[i].get_idade())
-        print("Salário:", pacientes[i].get_salario())
+    pacientes = [
+        Paciente("Ana", 23, 3000, 1),
+        Paciente("Bia", 18, 2000, 2),
+        Paciente("José", 27, 5000, 3),
+    ]
 
-    #atribui a classe Calcula
-    Calcular = Calcula()
+    medico = Medico("João", 33, 10000)
+    medico.atualizar_total_pacientes(pacientes)
+    calcular = Calcula()
 
-    i = 0
-    while i < 3: 
-        print("Valor a pagar do paciente {i}: ",  Calcular._media_sal(Paciente[i], medico))
-        i +=1      
+    print("Total de pacientes na fila:", calcular.contar_pacientes(pacientes))
+    print("Total de pacientes do médico:", medico.num_pacientes)
+
+    for paciente in pacientes:
+        pagamento = calcular.calcular_pagamento(medico, paciente)
+        print(f"Paciente: {paciente.get_nome()}")
+        print(f"Posição na fila: {calcular.numero_na_fila(paciente)}")
+        print(f"Pagamento final: R$ {pagamento:.2f}")
+
+    atendimento = atende(medico, pacientes[0], pacientes)
+    atendimento.realizar_atendimento()
+    print("Pacientes restantes na fila:", calcular.contar_pacientes(pacientes))
+    print("Total atualizado no médico:", medico.num_pacientes)
+    for paciente in pacientes:
+        print(f"{paciente.get_nome()} agora está na posição {paciente.posicao_fila}.")
+
 
     #teste de exceção para idade negativa
     try:
-        p3 = Pessoa("Carlos", -5, 3000)
+        Paciente("Carlos", -5, 3000, 1)
     except ValueError as erro:
         print("Criação recusada:", erro)  
-
-
-
